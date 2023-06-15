@@ -12,9 +12,14 @@ app.use(express.json());
 app.use(cors());
 app.use('/auth', userRouter);
 app.use('/recipes', recipesRouter);
+const port = 3040
+mongoose.connect(process.env.MONGODB_URL).then(() => {
+    console.log("Mongodb connected");
+    app.listen(port, () => {
+        console.log(`Server is listening on port ${port}`);
+    });
+}).catch((err) => {
+    console.log({ err });
+    process.exit(1);
+});
 
-const mongodb_connect_url = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@recipes-app-cluster.ujp7f4d.mongodb.net/my-recipes-app?retryWrites=true&w=majority`
-const mongodb_connect_url2 = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@recipes.cbjcm98.mongodb.net/recipes?retryWrites=true&w=majority`
-mongoose.connect(process.env.MONGODB_URL)
-
-app.listen(3040, () => console.log('Server has started'))
