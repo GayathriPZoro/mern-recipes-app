@@ -10,6 +10,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.get('/',(req, res)=> res.send({"Success": "Welcome to Node Express Server"}))
 app.use('/auth', userRouter);
 app.use('/recipes', recipesRouter);
 const port = 3040
