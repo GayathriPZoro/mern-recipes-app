@@ -32,7 +32,8 @@ Run the client with package script in client folder: start:dev in package.json
 
 Build client with the package script "build" in package.json file
 
-# Application Public Url (https://mern-recipes-grdkql28n-gayathri-polubothu.vercel.app/)
+# Application Public Url 
+(https://mern-recipes-grdkql28n-gayathri-polubothu.vercel.app/)
 
 ### Other
 
