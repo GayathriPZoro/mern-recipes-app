@@ -21,16 +21,18 @@ export const Home = () => {
                 console.log('Fetch Recipes error: ', err)
             }
         }
-        const fetchSavedRecipes = async() => {
-            try{
-                const response = await Services.getSavedRecipes(userID, true);
-                setSavedRecipes(response.data.savedRecipes);
-            }catch(err) {
-                console.log('Fetch Recipes error: ', err)
+        if(cookies.access_token !== '') {
+            const fetchSavedRecipes = async() => {
+                try{
+                    const response = await Services.getSavedRecipes(userID, true);
+                    setSavedRecipes(response.data.savedRecipes);
+                }catch(err) {
+                    console.log('Fetch Recipes error: ', err)
+                }
             }
+            fetchSavedRecipes()
         }
         fetchRecipes()
-        fetchSavedRecipes()
     }, [])
 
     const handleSaveRecipe = async(Recipe) => {
@@ -38,7 +40,7 @@ export const Home = () => {
              authorization: cookies.access_token
             }})
     }
-    const isRecipeSaved = (id) => savedRecipes.includes(id)
+    const isRecipeSaved = (id) => savedRecipes?.includes(id)
     return (
         <Box p={3}>
             <Grid sx={{ width: '100%'}} container rowSpacing={3} columnSpacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>

@@ -1,5 +1,5 @@
-import {Snackbar, Button, Alert, AlertProps} from "@mui/material";
-import {useState, forwardRef} from "react";
+import {Snackbar, Alert} from "@mui/material";
+import {forwardRef} from "react";
 
 const SnackbarAlert = forwardRef(
     function SnackbarAlert(props, ref){
