@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import {
-    Button,
-    Divider,
-    Drawer,
-    IconButton,
-    List,
-    ListItem,
-    ListItemText,
-    makeStyles,
-} from "@mui/material";
+import { useState } from "react";
+import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListSubheader from '@mui/material/ListSubheader';
+import Divider from '@mui/material/Divider';
 import Menu from '@mui/icons-material/Menu'
+import Home from '@mui/icons-material/Home'
+import ExitToApp from '@mui/icons-material/ExitToApp'
+
 import { Link } from "react-router-dom";
 
 function MenuDrawerComponent({cookies, logout}) {
@@ -23,43 +25,59 @@ function MenuDrawerComponent({cookies, logout}) {
                 open={openDrawer}
                 onClose={() => setOpenDrawer(false)}
             >
-                <List>
-                    <ListItem onClick={() => setOpenDrawer(false)}>
+                <List
+                    aria-labelledby="My Recipes App Menu"
+                    subheader={
+                        <ListSubheader component="div" id="My Recipes App Menu">
+                            My Recipes App Menu
+                        </ListSubheader>
+                    }
+                >
+                    <ListItem onClick={() => setOpenDrawer(false)} button>
+                        <ListItemIcon>
+                            <Home />
+                        </ListItemIcon>
                         <ListItemText>
                             <Link to="/">Home</Link>
                         </ListItemText>
                     </ListItem>
                     <Divider />
-                    <ListItem onClick={() => setOpenDrawer(false)}>
-                        <ListItemText>
-                            <Link to="#">Recipes</Link>
-                            <List>
-                                <ListItem>
-                                    <ListItemText>
-                                        <Link to="/">All Recipes</Link>
-                                    </ListItemText>
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText>
-                                        <Link to="/create-recipe">Create Recipe</Link>
-                                    </ListItemText>
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText>
-                                        <Link to="/saved-recipes">Favorite Recipes</Link>
-                                    </ListItemText>
-                                </ListItem>
-                            </List>
-                        </ListItemText>
-                    </ListItem>
-                    <Divider />
                     {cookies.access_token ? (
-                        <Button variant={'contained'} onClick={()=>{
-                            logout()
-                            setOpenDrawer(false)
-                        }}>
-                            Logout
-                        </Button>
+                        <>
+
+                            <ListItem onClick={() => setOpenDrawer(false)}>
+                                <ListItemText>
+                                    <Link to="#">Recipes</Link>
+                                    <List>
+                                        <ListItem>
+                                            <ListItemText>
+                                                <Link to="/">All Recipes</Link>
+                                            </ListItemText>
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemText>
+                                                <Link to="/create-recipe">Create Recipe</Link>
+                                            </ListItemText>
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemText>
+                                                <Link to="/saved-recipes">Favorite Recipes</Link>
+                                            </ListItemText>
+                                        </ListItem>
+                                    </List>
+                                </ListItemText>
+                            </ListItem>
+                            <Divider />
+                            <Button
+                                sx={{m:2}}
+                                startIcon={<ExitToApp />}
+                                variant={'contained'} onClick={()=>{
+                                logout()
+                                setOpenDrawer(false)
+                            }}>
+                                Logout
+                            </Button>
+                        </>
                     ) : (
                         <>
                             <ListItem onClick={() => setOpenDrawer(false)}>

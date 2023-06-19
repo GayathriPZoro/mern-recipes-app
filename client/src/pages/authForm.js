@@ -22,7 +22,7 @@ export const AuthForm = ({username, password, setUsername, setPassword, label, e
                            variant={'outlined'} value={username} onChange={(e)=> setUsername(e.target.value)}/>
                 <TextField label={'Password'} required value={password} onChange={(e)=> setPassword(e.target.value)}
                            type={showPassword ? 'text': 'password'}
-                           InputProps={{endAdornment: showPassword ? <Visibility onClick={()=>setShowPassword(false)}/> : <VisibilityOff onClick={()=>setShowPassword(true)}/>}}
+                           InputProps={{endAdornment: !showPassword ? <Visibility onClick={()=>setShowPassword(true)}/> : <VisibilityOff onClick={()=>setShowPassword(false)}/>}}
                            helperText={!password ?  'Required' : label === 'Register' ? 'Do not share your password to anyone': null}
                            variant={'outlined'}/>
                 {(email === '' || email )&&(
