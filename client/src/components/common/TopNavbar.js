@@ -51,7 +51,7 @@ const TopNavbar = () => {
             <Sidebar open={sidebarOpen} toggleSidebar={toggleSidebar} />
             <ScrollAppBar>
                 <AppBar elevation={0} sx={{ zIndex: 9999 }}>
-                    <Toolbar sx={{ alignItems: "center", justifyContent: "space-between" }}>
+                    <Toolbar sx={{ alignItems: "center", justifyContent: "space-between", borderBottom: '1px solid #DCDCDC' }}>
                         <Stack direction="row" spacing={1} alignItems="center">
                             <IconButton
                                 color="inherit"
