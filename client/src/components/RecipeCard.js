@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Tooltip from '@mui/material/Tooltip';
 import vegetarianRecipe from '../assests/vegetarian-recipes.jpg'
 import {useGetUserID} from "../hooks/useGetUserID";
+import Chip from "@mui/material/Chip";
 
 // interface ExpandMoreProps extends IconButtonProps {
 //     expand: boolean;
@@ -73,9 +74,9 @@ export default function RecipeReviewCard({Recipe, isRecipeSaved= ()=> {}, fromSa
                 alt="Paella dish"
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    {ingredients}
-                </Typography>
+                {ingredients?.map((chip, idx)=>(
+                    <Chip label={chip} variant={'outlined'} color={'primary'} size={'small'} key={chip+idx}/>
+                ))}
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">

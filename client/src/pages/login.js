@@ -1,11 +1,18 @@
 import {useState} from "react";
 import {useCookies } from "react-cookie";
 import {useNavigate} from "react-router-dom";
-import {AuthForm} from "./authForm";
+import {AuthForm} from "../components/common/authForm";
 import * as Services from "../services/services";
-import {MuiSnackbar} from "../utils/MuiSnackbar";
+import {MuiSnackbar} from "../components/common/MuiSnackbar";
+import {useTheme} from "@mui/material";
+import MyRecipesImg from '../assests/myrecipes.jpg'
+import {useDispatch} from "react-redux";
+import {setUser} from "../redux/reducers/userState";
+
 
 export const Login = () => {
+    const theme = useTheme();
+    const dispatch= useDispatch()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [open, setOpen] = useState(false);
@@ -22,11 +29,12 @@ export const Login = () => {
                 }
             )
         } else {
+            dispatch(setUser(response?.data))
             setCookies("access_token", response.data.token)
             window.localStorage.setItem("user", response.data)
             window.localStorage.setItem("userID", response.data.userID)
-            navigate("/")
-            navigate(0)
+            navigate('/recipes')
+           // navigate(0)
         }
         setOpen(true)
         setUsername('');

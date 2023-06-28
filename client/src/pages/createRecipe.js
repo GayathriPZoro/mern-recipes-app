@@ -1,10 +1,12 @@
-import {Button, Chip, Stack, TextField, Typography} from "@mui/material";
+import {Button, Chip, Stack, TextField, Typography, useTheme} from "@mui/material";
 import {useState} from "react";
 import * as Services from "../services/services";
 import {useGetUserID} from "../hooks/useGetUserID";
 import {useNavigate} from "react-router-dom";
 import {useCookieState} from "../hooks/useCookieState";
+import {containerStyle} from "../components/common/styles.common";
 export const CreateRecipe = () => {
+    const theme = useTheme();
     const [name, setName] = useState('');
     const [instructions, setInstructions] = useState();
     const [ingredient, setIngredient] = useState('');
@@ -23,23 +25,19 @@ export const CreateRecipe = () => {
             name, ingredients, instructions, cookingTime, image, userOwner: userID
         }, access_token)
         if(!response.error) {
-            navigate('/')
+            navigate('/recipes')
         }
     }
     return (
         <Stack direction={'column'} spacing={2}  sx={{
-            backgroundColor: 'background.paper',
-            boxShadow: 1,
-            borderRadius: 2,
-            p: 2,
-            justifyContent: 'center',
+           ...containerStyle,
             my: 4,
+            justifyContent: 'center',
             minWidth: 400,
             maxWidth: 'auto',
-            paddingBottom: 4,
-            display: 'inline-block'
+            m: 'auto'
         }}>
-            <Typography sx={{textAlign: 'center'}} variant={'h5'}>Create Recipe</Typography>
+            <Typography style={{ color: theme.palette.primary.main, textAlign: 'center' }} variant={'h5'}>Create Recipe</Typography>
             <Stack direction={'column'} spacing={2}>
                 <TextField label={'Name'} required
                            helperText={!name ? 'Required': null}
