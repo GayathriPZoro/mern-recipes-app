@@ -9,7 +9,8 @@ export const AuthForm = ({username, password, setUsername, setPassword, label, e
     const isValidEmail = email?.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
 
     return (
-        <Stack direction={'column'} spacing={4} m={'auto'} sx={{...containerStyle, minWidth: 300, maxWidth: 600}}>
+        <Stack direction={'column'} spacing={4} m={'auto'} sx={{...containerStyle, minWidth: 300, maxWidth: 600
+        }}>
             <Typography variant={'h5'} style={{ color: theme.palette.primary.main, textAlign: 'center' }}>{label}</Typography>
             <Stack direction='column' spacing={2}>
                 <TextField label={'User Name'} required

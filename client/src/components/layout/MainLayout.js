@@ -4,7 +4,8 @@ import Footer from "../common/Footer";
 import GlobalLoading from "../common/GlobalLoading";
 import TopNavbar from "../common/TopNavbar";
 import {useDispatch, useSelector} from "react-redux";
-
+import backingImage from '../../assests/vegetarian-recipes.jpg'
+import myRecipesImg from '../../assests/myrecipes2.jpg'
 const MainLayout = () => {
     const dispatch = useDispatch();
 
@@ -14,10 +15,6 @@ const MainLayout = () => {
             {/* global loading */}
             <GlobalLoading />
             {/* global loading */}
-
-            {/* login modal */}
-            {/*<AuthModal />*/}
-            {/* login modal */}
 
             <Box display="flex" minHeight="100vh" sx={{}}>
                 {/* header */}
@@ -32,6 +29,7 @@ const MainLayout = () => {
                     minHeight="100vh"
                     m={'auto'}
                     display={'flex'}
+                    sx={{backgroundImage: `url(${user ? myRecipesImg : backingImage})`, backgroundRepeat: 'no-repeat'}}
                 >
                     <Outlet />
                 </Box>
