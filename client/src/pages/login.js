@@ -5,7 +5,6 @@ import {AuthForm} from "../components/common/authForm";
 import * as Services from "../services/services";
 import {MuiSnackbar} from "../components/common/MuiSnackbar";
 import {useTheme} from "@mui/material";
-import MyRecipesImg from '../assests/myrecipes.jpg'
 import {useDispatch} from "react-redux";
 import {setUser} from "../redux/reducers/userState";
 
