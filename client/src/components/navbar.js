@@ -70,7 +70,7 @@ export const Navbar = () => {
                                    </>
                             ) : (
                                 <>
-                                    <Link to={"/"}>
+                                    <Link to={"/recipes"}>
                                         <Button color={'inherit'}>
                                             Home
                                         </Button>
@@ -103,7 +103,7 @@ export const Navbar = () => {
                                   horizontal: 'right'
                               }}
                         >
-                            <MenuItem onClick={handleClose}><Link to={'/'}>All Recipes</Link></MenuItem>
+                            <MenuItem onClick={handleClose}><Link to={'/recipes'}>All Recipes</Link></MenuItem>
                             <MenuItem onClick={handleClose}><Link to={'/create-recipe'}>Create Recipe</Link></MenuItem>
                             <MenuItem onClick={handleClose}><Link to={'/saved-recipes'}>Favorite Recipes</Link></MenuItem>
                         </Menu>

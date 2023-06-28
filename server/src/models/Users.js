@@ -13,6 +13,14 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    phoneNumber: {
+        type: String,
+        required: false
+    },
+    address: {
+        type: String,
+        required: false
+    },
     savedRecipes: [{type: mongoose.Schema.Types.ObjectId, ref: "recipes"}]
 })
 const UserModel = mongoose.model("users", UserSchema)

@@ -42,7 +42,7 @@ export const Home = () => {
     }
     const isRecipeSaved = (id) => savedRecipes?.includes(id)
     return (
-        <Box p={3}>
+        <Box m={'6% 2%'}>
             <Grid sx={{ width: '100%'}} container rowSpacing={3} columnSpacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
                 {recipes?.map((recipe, idx)=> (
                     <Grid item key={recipe._id} xs={4} md={3}>

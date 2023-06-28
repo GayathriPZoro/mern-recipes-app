@@ -38,7 +38,7 @@ function MenuDrawerComponent({cookies, logout}) {
                             <Home />
                         </ListItemIcon>
                         <ListItemText>
-                            <Link to="/">Home</Link>
+                            <Link to="/recipes">Home</Link>
                         </ListItemText>
                     </ListItem>
                     <Divider />
@@ -47,11 +47,11 @@ function MenuDrawerComponent({cookies, logout}) {
 
                             <ListItem onClick={() => setOpenDrawer(false)}>
                                 <ListItemText>
-                                    <Link to="#">Recipes</Link>
+                                    <Link to="/recipes">Recipes</Link>
                                     <List>
                                         <ListItem>
                                             <ListItemText>
-                                                <Link to="/">All Recipes</Link>
+                                                <Link to="/recipes">All Recipes</Link>
                                             </ListItemText>
                                         </ListItem>
                                         <ListItem>

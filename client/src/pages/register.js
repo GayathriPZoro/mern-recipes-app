@@ -1,12 +1,13 @@
 import {useState} from "react";
-import {AuthForm} from "./authForm";
+import {AuthForm} from "../components/common/authForm";
 import * as Services from "../services/services";
-import {MuiSnackbar} from "../utils/MuiSnackbar";
+import {MuiSnackbar} from "../components/common/MuiSnackbar";
 
 export const Register = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [open, setOpen] = useState(false);
     const [data, setData] = useState({})
 
@@ -31,6 +32,7 @@ export const Register = () => {
         setUsername('');
         setPassword('')
         setEmail('')
+        setPhoneNumber('')
     }
     return (
         <>
@@ -38,6 +40,7 @@ export const Register = () => {
                 username={username} password={password}
                 setUsername={setUsername} setPassword={setPassword}
                 email={email} setEmail={setEmail} label={'Register'}
+                phoneNumber={phoneNumber} setPhoeNumber={setPhoneNumber}
                 handleSubmit={handleSubmit}
             />
             {open && (
