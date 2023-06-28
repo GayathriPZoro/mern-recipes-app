@@ -26,9 +26,7 @@ recipesRouter.post('/', verifyToken ,async(req, res)=>{
 // Update Recipe to User Recipes
 recipesRouter.put('/', verifyToken, async(req, res)=>{
      try{
-         console.log('----after verify put recipe')
          const recipe = await RecipeModel.findById(req.body.recipeID)
-        console.log('---recipe after fetch', recipe)
          const user = await UserModel.findById(req.body.userID)
          user.savedRecipes.push(recipe);
          await user.save()

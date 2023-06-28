@@ -14,7 +14,6 @@ const registerUser = async(payload) => {
 const login = async(payload) => {
     try {
         const {data} = await axios.post(`${serverBaseUrl}/auth/login`, payload);
-        console.log('---login response---', data)
         return {data, message: data?.message || "Login Successful", status: 200}
     }catch (e) {
         return {error: e.message}
