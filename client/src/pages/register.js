@@ -40,7 +40,7 @@ export const Register = () => {
                 username={username} password={password}
                 setUsername={setUsername} setPassword={setPassword}
                 email={email} setEmail={setEmail} label={'Register'}
-                phoneNumber={phoneNumber} setPhoeNumber={setPhoneNumber}
+                phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
                 handleSubmit={handleSubmit}
             />
             {open && (

@@ -42,4 +42,20 @@ userRouter.post("/login", async(req, res) => {
     }
 });
 
+userRouter.post("/password-update", async(req, res) => {
+    const {username, password, userID} = req.body;
+    try {
+        const user = await UserModel.findOne({username});
+        if (!user) {
+            return res.json({message: "User does not exist!"})
+        }
+
+        const hashPwd = await bcrypt.hash(password, 10)
+        const updatedUser = await user.updateOne({_id: userID},{$set:{password: hashPwd}})
+        res.json({userID: updatedUser._id, username: updatedUser.username})
+    }catch(e) {
+        res.json({message: e.message})
+    }
+});
+
 module.exports=userRouter;

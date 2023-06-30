@@ -20,6 +20,15 @@ const login = async(payload) => {
     }
 }
 
+const updatePassword = async(payload) => {
+    try {
+        const {data} = await axios.post(`${serverBaseUrl}/auth/update-password`, payload);
+        return {data, message: data?.message || "Password Updated Successfully", status: 200}
+    }catch (e) {
+        return {error: e.message}
+    }
+}
+
 /*End of user service*/
 //Recipes Service
 const getAllRecipes = async() => {
@@ -60,4 +69,4 @@ const getSavedRecipes = async(userID, onlyIds) => {
 }
 /*End of recipes service*/
 
-export {registerUser, login, getAllRecipes, createRecipe, saveRecipe, getSavedRecipes}
+export {registerUser, login, updatePassword, getAllRecipes, createRecipe, saveRecipe, getSavedRecipes}

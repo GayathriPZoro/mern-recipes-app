@@ -10,7 +10,6 @@ import { themeModes } from "../../config/theme.configs";
 import Logo from "./Logo";
 import Sidebar from "./Sidebar";
 import UserMenu from "./UserMenu";
-import {useCookies} from "react-cookie";
 import {setThemeMode} from "../../redux/reducers/themeMode";
 
 const ScrollAppBar = ({ children, window }) => {
