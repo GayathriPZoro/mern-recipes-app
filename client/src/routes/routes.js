@@ -3,6 +3,7 @@ import {Login} from "../pages/login";
 import {Register} from "../pages/register";
 import {CreateRecipe} from "../pages/createRecipe";
 import {SavedRecipes} from "../pages/savedRecipes";
+import {ForgotPassword} from "../pages/forgotPassword";
 
 export const routesGen = {
     login: "/",
@@ -38,6 +39,11 @@ const routes = [
         path: "/saved-recipes",
         element: <SavedRecipes />,
         state: "saved.recipes"
+    },
+    {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+        state: "forgot.password"
     }
 ];
 

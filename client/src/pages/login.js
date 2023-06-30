@@ -33,12 +33,10 @@ export const Login = () => {
             window.localStorage.setItem("user", response.data)
             window.localStorage.setItem("userID", response.data.userID)
             navigate('/recipes')
-           // navigate(0)
         }
         setOpen(true)
         setUsername('');
         setPassword('')
-
     }
     return (
         <>
