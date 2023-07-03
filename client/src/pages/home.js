@@ -5,8 +5,11 @@ import {Box, Grid} from "@mui/material";
 import {useGetUserID} from "../hooks/useGetUserID";
 import {useCookies} from "react-cookie";
 import {saveRecipe} from "../services/services";
+import {setGlobalLoading} from "../redux/reducers/globalLoading";
+import {useDispatch} from "react-redux";
 
 export const Home = () => {
+    const dispatch = useDispatch()
     const [recipes, setRecipes] = useState([]);
     const [savedRecipes, setSavedRecipes] = useState([]);
     const userID = useGetUserID()
@@ -15,9 +18,12 @@ export const Home = () => {
     useEffect(() => {
         const fetchRecipes = async() => {
             try{
+                dispatch(setGlobalLoading(true))
                 const response = await Services.getAllRecipes();
                 setRecipes(response.data);
+                dispatch(setGlobalLoading(false))
             }catch(err) {
+                dispatch(setGlobalLoading(false))
                 console.log('Fetch Recipes error: ', err)
             }
         }

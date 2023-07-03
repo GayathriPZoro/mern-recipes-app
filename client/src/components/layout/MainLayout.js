@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import Footer from "../common/Footer";
 import GlobalLoading from "../common/GlobalLoading";
 import TopNavbar from "../common/TopNavbar";
 import {useDispatch, useSelector} from "react-redux";
@@ -20,7 +19,6 @@ const MainLayout = () => {
                 {/* header */}
                 <TopNavbar />
                 {/* header */}
-
                 {/* main */}
                 <Box
                     component="main"
@@ -35,10 +33,6 @@ const MainLayout = () => {
                 </Box>
                 {/* main */}
             </Box>
-
-            {/* footer */}
-            {/*<Footer />*/}
-            {/* footer */}
         </>
     );
 };

@@ -1,8 +1,12 @@
+require('dotenv').config()
 const express = require('express');
 const recipesRouter = express.Router();
 const RecipeModel = require('../models/Recipes')
 const UserModel = require("../models/Users");
 const verifyToken = require('./common')
+const axios = require('axios')
+const elasticSearchCloudUrl = process.env.ELASTIC_HOST_NAME
+
 // Get all recipes
 recipesRouter.get('/', async(req, res)=>{
     try{
@@ -54,6 +58,28 @@ recipesRouter.get('/savedRecipes/:userID', async(req, res)=>{
         res.json({ savedRecipes })
     }catch (e) {
         res.json(e)
+    }
+})
+
+//Search Recipes
+recipesRouter.post('/searchRecipes', async(req, res)=>{
+    try{
+        const payload = {
+            "query": {
+                "multi_match": {
+                    "query": req.body.searchTerm,
+                    "type":   "phrase_prefix",
+                    "fields": ["name","instructions", "ingredients"]
+                }
+            }
+        }
+        const headers = {
+            'Authorization': `apiKey ${process.env.ELASTIC_SEARCH_APP_API_KEY}`,
+        }
+        const {data} = await axios.post(`${elasticSearchCloudUrl}/my-recipes-elastic-search-app/_search`,payload, {headers})
+        res.send({recipes: data?.hits?.hits?.map(r=>r?._source) || [], total: data?._shards?.total || 0})
+    }catch (e) {
+
     }
 })
 module.exports=recipesRouter;

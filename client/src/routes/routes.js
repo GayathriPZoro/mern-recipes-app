@@ -4,6 +4,7 @@ import {Register} from "../pages/register";
 import {CreateRecipe} from "../pages/createRecipe";
 import {SavedRecipes} from "../pages/savedRecipes";
 import {ForgotPassword} from "../pages/forgotPassword";
+import {SearchRecipes} from "../pages/searchRecipes";
 
 export const routesGen = {
     login: "/",
@@ -11,7 +12,8 @@ export const routesGen = {
     home: "/recipes",
     createRecipe: "/create-recipe",
     savedRecipes: "/saved-recipes",
-    passwordUpdate: "/password-update"
+    passwordUpdate: "/password-update",
+    searchRecipes: "/search-recipes"
 };
 
 const routes = [
@@ -39,6 +41,11 @@ const routes = [
         path: "/saved-recipes",
         element: <SavedRecipes />,
         state: "saved.recipes"
+    },
+    {
+        path: "/search-recipes",
+        element: <SearchRecipes />,
+        state: "search.recipes"
     },
     {
         path: "/forgot-password",
