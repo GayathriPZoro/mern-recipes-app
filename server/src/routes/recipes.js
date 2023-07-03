@@ -79,7 +79,7 @@ recipesRouter.post('/searchRecipes', async(req, res)=>{
         const {data} = await axios.post(`${elasticSearchCloudUrl}/my-recipes-elastic-search-app/_search`,payload, {headers})
         res.send({recipes: data?.hits?.hits?.map(r=>r?._source) || [], total: data?._shards?.total || 0})
     }catch (e) {
-
+        res.json(e)
     }
 })
 module.exports=recipesRouter;
