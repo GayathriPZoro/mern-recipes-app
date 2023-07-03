@@ -10,7 +10,7 @@ import {searchRecipes} from "../services/services";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import {setGlobalLoading} from "../redux/reducers/globalLoading";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 
 export const SearchRecipes = () => {
     const dispatch = useDispatch()
@@ -19,9 +19,9 @@ export const SearchRecipes = () => {
     const handleSearch = async(searchTerm) => {
         dispatch(setGlobalLoading(true))
         const response = await searchRecipes(searchTerm)
+        dispatch(setGlobalLoading(false))
         if(response?.data) {
             setRecipes(response?.data)
-            dispatch(setGlobalLoading(false))
         }
     }
 
