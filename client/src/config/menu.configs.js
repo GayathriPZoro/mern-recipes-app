@@ -36,7 +36,7 @@ const user = [
     },
     {
         display: "search",
-        path: "/search",
+        path: "/search-recipes",
         icon: <SearchOutlinedIcon/>,
         state: "search"
     },
