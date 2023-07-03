@@ -1,5 +1,6 @@
 import axios from "axios";
 const serverBaseUrl = process.env.REACT_APP_SERVER_BASE_URL
+const elasticSearchCloudUrl = process.env.REACT_APP_ELASTIC_HOST_NAME
 
 
 //Users Service
@@ -67,6 +68,16 @@ const getSavedRecipes = async(userID, onlyIds) => {
         return {error: e.message}
     }
 }
+
+//Search Recipes
+const searchRecipes = async(searchTerm) => {
+    try {
+        const {data} = await axios.post(`${serverBaseUrl}/recipes/searchRecipes`,{searchTerm} )
+        return {data: data?.recipes, total: data?.total}
+    }catch (e) {
+        return {error: e.message}
+    }
+}
 /*End of recipes service*/
 
-export {registerUser, login, updatePassword, getAllRecipes, createRecipe, saveRecipe, getSavedRecipes}
+export {registerUser, login, updatePassword, getAllRecipes, createRecipe, saveRecipe, getSavedRecipes, searchRecipes}
