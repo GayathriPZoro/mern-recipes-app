@@ -45,12 +45,12 @@ export const ForgotPassword = () => {
                            variant={'outlined'} value={username} onChange={(e)=> setUsername(e.target.value)}/>
                 <TextField label={'New Password'} required value={password} onChange={(e)=> setPassword(e.target.value)}
                            type={showPassword ? 'text': 'password'}
-                           InputProps={{endAdornment: !showPassword ? <Visibility onClick={()=>setShowPassword(true)}/> : <VisibilityOff onClick={()=>setShowPassword(false)}/>}}
+                           InputProps={{endAdornment: showPassword ? <Visibility onClick={()=>setShowPassword(false)}/> : <VisibilityOff onClick={()=>setShowPassword(true)}/>}}
                            helperText={!password ?  'Required' : 'Do not share your password to anyone'}
                            variant={'outlined'}/>
                 <TextField label={'Confirm Password'} required value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)}
                            type={showPassword ? 'text': 'password'}
-                           InputProps={{endAdornment: !showPassword ? <Visibility onClick={()=>setShowPassword(true)}/> : <VisibilityOff onClick={()=>setShowPassword(false)}/>}}
+                           InputProps={{endAdornment: showPassword ? <Visibility onClick={()=>setShowPassword(false)}/> : <VisibilityOff onClick={()=>setShowPassword(true)}/>}}
                            helperText={!confirmPassword ?  'Required' : (password !== confirmPassword) ? 'Confirm password and new password are not matched': null}
                            variant={'outlined'}/>
                 <Button variant="contained" onClick={handleSubmit}
