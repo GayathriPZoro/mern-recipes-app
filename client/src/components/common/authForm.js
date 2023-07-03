@@ -20,13 +20,13 @@ export const AuthForm = ({username, password, setUsername, setPassword, label, e
     return (
         <Stack direction={'column'} spacing={4} m={'auto'} sx={{...containerStyle, minWidth: 300, maxWidth: 600}}>
             <Typography variant={'h5'} style={{ color: theme.palette.primary.main, textAlign: 'center' }}>{label}</Typography>
-            <Stack direction='column' spacing={2}>
+            <Stack direction='column' spacing={2} sx={{ mb: 2}}>
                 <TextField label={'User Name'} required
                            helperText={!username ? 'Required': null}
                            variant={'outlined'} value={username} onChange={(e)=> setUsername(e.target.value)}/>
                 <TextField label={'Password'} required value={password} onChange={(e)=> setPassword(e.target.value)}
                            type={showPassword ? 'text': 'password'}
-                           InputProps={{endAdornment: !showPassword ? <Visibility onClick={()=>setShowPassword(true)}/> : <VisibilityOff onClick={()=>setShowPassword(false)}/>}}
+                           InputProps={{endAdornment: showPassword ? <Visibility onClick={()=>setShowPassword(false)}/> : <VisibilityOff onClick={()=>setShowPassword(true)}/>}}
                            helperText={!password ?  'Required' : label === 'Register' ? 'Do not share your password to anyone': null}
                            variant={'outlined'}/>
                 {(email === '' || email )&&(

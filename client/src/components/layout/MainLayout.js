@@ -16,7 +16,7 @@ const MainLayout = () => {
             <GlobalLoading />
             {/* global loading */}
 
-            <Box display="flex" minHeight="100vh" sx={{}}>
+            <Box display="flex" minHeight="100vh">
                 {/* header */}
                 <TopNavbar />
                 {/* header */}
