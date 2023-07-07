@@ -8,7 +8,6 @@ import {useSavedRecipes} from "../../../app/hooks/useRecipes";
 const SavedRecipes = () => {
     const userID = useGetUserID()
     const { data: savedRecipes=[], isLoading, isFetching } = useSavedRecipes({userID})
-console.log('----savedRecipes ---', savedRecipes)
     if(savedRecipes?.length === 0) {
         return(
             <Box sx={{m: 'auto'}}>

@@ -46,7 +46,6 @@ const TopNavbar = () => {
     };
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
-    console.log('----apppState---', appState, user)
     return (
         <>
             <Sidebar open={sidebarOpen} toggleSidebar={toggleSidebar} />
