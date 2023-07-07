@@ -23,10 +23,9 @@ GOOGLE_CLIENT_SECRET=
 
 ## Run
 
-Run the server with node server/index.js or run the script: server:start in package.json
-The server is reachable at port 3040 in localhost. If you used start:dev, you should use localhost:8080 for hot rerload.
-
 Run the client with package script in client folder: dev in package.json
+
+Server is also run on reachable at port 3000 in localhost (http://localhost:2000/api/<<API_ENDPOINT>>). If you used dev, you should use localhost:3000 for hot rerload.
 
 ## Build
 
