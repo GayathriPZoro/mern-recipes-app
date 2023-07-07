@@ -1,4 +1,3 @@
-'use client'
 import {Typography, useTheme} from "@mui/material";
 const Logo = () => {
     const theme = useTheme();

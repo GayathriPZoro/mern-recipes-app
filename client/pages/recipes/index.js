@@ -1,25 +1,30 @@
+'use client'
 import RecipeReviewCard from '../../app/components/RecipeCard'
 import {Box, Grid} from "@mui/material";
 import {useGetUserID} from "../../app/hooks/useGetUserID";
 import {useCookies} from "react-cookie";
-import {useRecipes, useSavedRecipesIds} from "../../app/hooks/useRecipes";
+import {useSavedRecipesIds} from "../../app/hooks/useRecipes";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
 
-const RecipesHome = () => {
+export async function getServerSideProps({context}) {
+    const data = await fetch(`${process.env.NEXT_SERVER_BASE_URL}/api/recipes`).then(response=> response.json()) //${process.env.NEXT_SERVER_BASE_URL}/api/recipes
+    return { props: { recipes: data} }
+}
+
+const RecipesHome = ({recipes, savedRecipesData}) => {
     const userID = useGetUserID()
     const {data: session} = useSession()
-    const { data: recipes, isLoading, isFetching } = useRecipes()
     const { data: savedRecipes = [], isLoadingSavedRecipes, isFetchingSavedRecipes } = useSavedRecipesIds({userID})
     const [cookies, _] = useCookies("access_token")
     const router = useRouter()
-
     useEffect(()=>{
         if(!session && !userID) {
             router.push('/')
         }
     },[])
+
     const handleSaveRecipe = async(Recipe) => {
         const response = await fetch('/api/recipes/save', {
             method: 'POST',

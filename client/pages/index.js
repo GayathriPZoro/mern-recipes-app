@@ -1,33 +1,38 @@
-// 'use client'
+'use client'
 import {useEffect, useState} from "react";
 import {useCookies } from "react-cookie";
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack';
 import {useRouter} from "next/router";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import AuthForm from "../app/components/authForm";
 import {MuiSnackbar} from "../app/components/MuiSnackbar";
-import {useDispatch} from "react-redux";
-import {setUser} from "../app/redux/reducers/userState";
-import {setAppState} from "../app/redux/reducers/appState";
 import GoogleIcon from '@mui/icons-material/Google';
-
+import {useAppContext} from "../app/context/appState";
+import {useUserContext} from "../app/context/user";
 
 const Login = () => {
     const { data: session } = useSession();
-    const dispatch= useDispatch()
+    const {setUser} = useUserContext()
+    const {setAppState} = useAppContext();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [open, setOpen] = useState(false);
     const [data, setData] = useState({})
-    const [_, setCookies]=useCookies(["access_token"])
+    const [cookies, setCookies]=useCookies(["access_token"])
+    const[userCookie, setUserCookie] = useCookies(['user'])
     const router = useRouter()
 
     useEffect(()=>{
-        if(session) {
-            dispatch(setUser(session?.user))
-            router.push('/recipes')
-        }
+       setTimeout(()=> {
+           if(session) {
+               setUser(session?.user)
+               setUserCookie("user", session?.user)
+               setAppState('home')
+               router.push('/recipes')
+           }
+       }, 1000)
+        return(()=> clearTimeout())
     },[session])
     const handleSubmit = async(event) => {
         event.preventDefault();
@@ -47,10 +52,10 @@ const Login = () => {
                 }
             )
         } else {
-            dispatch(setUser(response))
-            dispatch(setAppState('home'))
+            setUser(response)
+            setAppState('home')
             setCookies("access_token", response?.token)
-            window.localStorage.setItem("user", response)
+            setUserCookie("user", response)
             window.localStorage.setItem("userID", response?.userID)
             setData({
                     message: 'Login Successful!',

@@ -1,11 +1,14 @@
+'use client'
 import {Button, Chip, Stack, TextField, Typography, useTheme} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useGetUserID} from "../../../app/hooks/useGetUserID";
 import {useCookieState} from "../../../app/hooks/useCookieState";
 import {containerStyle} from "../../../app/components/styles.common";
 import {useRouter} from "next/router";
+import {useSession} from "next-auth/react";
 const CreateRecipe = () => {
     const theme = useTheme();
+    const {data: session} = useSession()
     const [name, setName] = useState('');
     const [instructions, setInstructions] = useState();
     const [ingredient, setIngredient] = useState('');
@@ -15,6 +18,12 @@ const CreateRecipe = () => {
     const userID = useGetUserID()
     const router = useRouter()
     const access_token = useCookieState({key: 'access_token'})
+
+    useEffect(()=>{
+        if(!session && !userID) {
+            router.push('/')
+        }
+    },[])
     const handleDelete = (chipToDelete) => {
         setIngredients(chips => chips.filter(chip=> chip!==chipToDelete) )
     }

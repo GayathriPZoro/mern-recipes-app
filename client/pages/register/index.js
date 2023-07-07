@@ -11,7 +11,6 @@ const Register = () => {
     const [open, setOpen] = useState(false);
     const [data, setData] = useState({})
 
-
     const handleSubmit = async(event) => {
         event.preventDefault();
         const response = await fetch('/api/auth/register',{

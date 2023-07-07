@@ -49,12 +49,12 @@ const user = [
 ]
 
 const userMenu = [
-    {
-        display: "password update",
-        path: "/password-update",
-        icon: <LockResetOutlinedIcon />,
-        state: "password-update"
-    }
+    // {
+    //     display: "password update",
+    //     path: "/password-update",
+    //     icon: <LockResetOutlinedIcon />,
+    //     state: "password-update"
+    // }
 ];
 
 const menuConfigs = { main, user, userMenu };

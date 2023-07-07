@@ -1,29 +1,27 @@
 
 import { Drawer, List, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import  Link  from "next/link";
 import menuConfigs from "../config/menu.configs";
 import Logo from "./Logo";
 import uiConfigs from "../config/ui.configs";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-
+import {useThemeContext} from "../context/theme";
 import { themeModes } from "../config/theme.configs";
-import {setThemeMode} from "../redux/reducers/themeMode";
-import {setAppState} from "../redux/reducers/appState";
+import {useAppContext} from "../context/appState";
+import {useUserContext} from "../context/user";
 
 const Sidebar = ({ open, toggleSidebar }) => {
-    const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.user);
-    const { appState } = useSelector((state) => state.appState);
-    const { themeMode } = useSelector((state) => state.themeMode);
+    const {user} = useUserContext()
+    const {appState, setAppState} = useAppContext()
+    const {themeMode, setThemeMode} = useThemeContext()
     const mainMenuConfigs = user ? menuConfigs.user : menuConfigs.main
 
     const sidebarWidth = uiConfigs.size.sidebarWith;
 
     const onSwitchTheme = () => {
         const theme = themeMode === themeModes.dark ? themeModes.light : themeModes.dark;
-        dispatch(setThemeMode(theme));
+        setThemeMode(theme)
     };
 
     const drawer = (
@@ -47,7 +45,7 @@ const Sidebar = ({ open, toggleSidebar }) => {
                         component={Link}
                         onClick={() => {
                             toggleSidebar(false)
-                            dispatch(setAppState(item.state))
+                            setAppState(item.state)
                         }}
                     >
                         <ListItemIcon>{item.icon}</ListItemIcon>
@@ -70,7 +68,7 @@ const Sidebar = ({ open, toggleSidebar }) => {
                             to={item.path}
                             onClick={() => {
                                 toggleSidebar(false)
-                                dispatch(setAppState(item.state))
+                                setAppState(item.state)
                             }}
                         >
                             <ListItemIcon>{item.icon}</ListItemIcon>

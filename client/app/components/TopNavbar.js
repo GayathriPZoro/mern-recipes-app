@@ -1,5 +1,4 @@
 'use client'
-import { useSelector, useDispatch } from "react-redux";
 import MenuIcon from "@mui/icons-material/Menu";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
@@ -11,41 +10,41 @@ import { themeModes } from "../config/theme.configs";
 import Logo from "./Logo";
 import Sidebar from "./Sidebar";
 import UserMenu from "./UserMenu";
-import {setThemeMode} from "../redux/reducers/themeMode";
-import {setAppState} from "../redux/reducers/appState";
+import {useThemeContext} from "../context/theme";
+import {useAppContext} from "../context/appState";
+import {useCookies} from "react-cookie";
 
 const ScrollAppBar = ({ children, window }) => {
-    const { themeMode } = useSelector((state) => state.themeMode);
+    const { themeMode } = useThemeContext()
 
     const trigger = useScrollTrigger({
         disableHysteresis: true,
         threshold: 50,
-        target: window ? window() : undefined
+        target: typeof window !== 'undefined' ? window() : undefined
     });
 
     return cloneElement(children, {
         sx: {
             color: trigger ? "text.primary" : themeMode === themeModes.dark ? "primary.contrastText" : "text.primary",
-            backgroundColor: "background.paper"//trigger ? "background.paper" : themeMode === themeModes.dark ? "transparent" : "background.paper"
+            backgroundColor: "background.paper"
         }
     });
 };
 const TopNavbar = () => {
-    const { user } = useSelector((state) => state.user);
-    const { appState } = useSelector((state) => state.appState);
-    const { themeMode } = useSelector((state) => state.themeMode);
-
+    const[cookies, setCookies] = useCookies(['user'])
+    const user = cookies?.user && typeof cookies?.user !== 'string' ? cookies?.user : null
+    const {appState, setAppState} = useAppContext()
+    const { themeMode, setThemeMode } = useThemeContext()
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const mainMenuConfigs = user ? menuConfigs.user : menuConfigs.main
 
-    const dispatch = useDispatch();
-
     const onSwithTheme = () => {
         const theme = themeMode === themeModes.dark ? themeModes.light : themeModes.dark;
-        dispatch(setThemeMode(theme));
+        setThemeMode(theme)
     };
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
     return (
         <>
             <Sidebar open={sidebarOpen} toggleSidebar={toggleSidebar} />
@@ -71,7 +70,7 @@ const TopNavbar = () => {
                             <Box sx={{ marginRight: "30px" }}>
                                 <Logo />
                             </Box>
-                            {mainMenuConfigs.map((item, index) => (
+                            {mainMenuConfigs?.map((item, index) => (
                                 <Button
                                     key={index}
                                     sx={{
@@ -80,8 +79,9 @@ const TopNavbar = () => {
                                     }}
                                     component={Link}
                                     href={item.path}
-                                    to={item.path}
-                                    onClick={()=> {dispatch(setAppState(item.state))}}
+                                    onClick={()=> {
+                                        setAppState(item.state)}
+                                    }
                                     variant={appState.includes(item.state) ? "contained" : "text"}
                                 >
                                     {item.display}

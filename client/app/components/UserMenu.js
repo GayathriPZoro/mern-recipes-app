@@ -2,34 +2,34 @@
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import {ListItemButton, ListItemIcon, ListItemText, Menu, Typography, useTheme} from "@mui/material";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {signOut} from "next-auth/react";
 import Link from 'next/link'
 import menuConfigs from "../config/menu.configs";
 import {useCookies} from "react-cookie";
 import Avatar from "@mui/material/Avatar";
-import {setUser} from "../redux/reducers/userState";
 import {useRouter} from "next/router";
-import {setAppState} from "../redux/reducers/appState";
+import {useAppContext} from "../context/appState";
+import {useUserContext} from "../context/user";
 
 const UserMenu = () => {
-    const { user } = useSelector((state) => state.user);
-    const [cookies, setCookies] = useCookies('access_token')
+    const { setUser} = useUserContext()
+    const {setAppState} = useAppContext()
+    const [cookies, setCookies] = useCookies(['user'])
     const router = useRouter()
     const theme = useTheme();
-
-    const dispatch = useDispatch();
+    const user = cookies?.user && typeof cookies?.user !== 'string' ? cookies?.user : null
 
     const [anchorEl, setAnchorEl] = useState(null);
 
     const toggleMenu = (e) => setAnchorEl(e.currentTarget);
     const logout = () =>{
-        dispatch(setUser(null))
-        dispatch(setAppState('login'))
+        setUser(null)
+        setAppState('login')
         setCookies("access_token", "")
+        setCookies("user", null)
         window.localStorage.removeItem("userID")
-        signOut().then(()=>{
-            dispatch(setUser(null))
+        signOut().then((data)=>{
+            window.localStorage.removeItem("userID")
             router.push("/")
         })
     }
@@ -49,7 +49,7 @@ const UserMenu = () => {
                                 sx={{ width: 30, height: 30}}
                             />
                         ) : (
-                            <Avatar children={`${user?.name || user?.username[0].toUpperCase()}`} sx={{ backgroundColor: theme.palette.primary.main, color: theme.palette.primary.contrastText}}/>
+                            <Avatar children={`${user?.name || (user?.username &&user?.username[0].toUpperCase())}`} sx={{ backgroundColor: theme.palette.primary.main, color: theme.palette.primary.contrastText}}/>
                         )
                         }
                     </Typography>

@@ -5,24 +5,35 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import Typography from "@mui/material/Typography";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import {setGlobalLoading} from "../../../app/redux/reducers/globalLoading";
-import {useDispatch} from "react-redux";
+import {useGlobalLoadingContext} from "../../../app/context/globalLoading";
+import {useSession} from "next-auth/react";
+import {useGetUserID} from "../../../app/hooks/useGetUserID";
+import {useRouter} from "next/router";
 
 const SearchRecipes = () => {
-    const dispatch = useDispatch()
+    const {data: session} = useSession()
+    const userID = useGetUserID()
+    const {setGlobalLoading} = useGlobalLoadingContext()
     const [recipes, setRecipes] = useState([]);
+    const router = useRouter()
+
+    useEffect(()=>{
+        if(!session && !userID) {
+            router.push('/')
+        }
+    },[])
 
     const handleSearch = async(searchTerm) => {
-        dispatch(setGlobalLoading(true))
+        setGlobalLoading(true)
         const response = await fetch('/api/recipes/search',{
             method: 'POST',
             body: JSON.stringify({searchTerm}),
             headers: {'Content-Type': 'application/json'}
         }).then(resp=> resp.json())
-        dispatch(setGlobalLoading(false))
+        setGlobalLoading(false)
         if(response?.recipes) {
             setRecipes(response?.recipes)
         }

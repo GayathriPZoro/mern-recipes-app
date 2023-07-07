@@ -65,11 +65,6 @@ const AuthForm = ({username, password, setUsername, setPassword, label, email ,s
                         {label === 'Login' ? 'Sign Up' : 'Log In'}
                     </Button>
                 </Typography>
-                {/*{label === 'Login_cop' && (*/}
-                {/*   <Link to={'/forgot-password'} style={{*/}
-                {/*       color: theme.palette.primary.main, textAlign: 'center', marginBottom: '2%'*/}
-                {/*   }}>Forgot Password?</Link>*/}
-                {/*)}*/}
             </Stack>
         </Stack>
     )
