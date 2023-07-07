@@ -7,8 +7,9 @@ With this application users can do the following features
 2. User Login, 
 3. All Recipes(Home page), 
 4. Create Recipe, 
-5. Favorite Recipe, 
-6. Logout
+5. Favorite Recipe,
+6. Search Recipes
+7. Logout
 
 ## Setup
 Clone the repository and install the dependencies with 'yarn install' | 'npm install'
@@ -20,6 +21,9 @@ Create .env file in project root directory and set the following variables
 3. PRIVATE_SECRET_KEY 
 4. REACT_APP_SERVER_BASE_URL 
 5. SERVER_PORT = 3040
+6. ELASTIC_SEARCH_APP_API_KEY =
+7. ELASTIC_HOST_NAME=
+8. ELASTIC_ENGINE_NAME=
 
 ## Run
 
