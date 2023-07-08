@@ -19,7 +19,7 @@ const AuthForm = ({username, password, setUsername, setPassword, label, email ,s
     const dontHaveMsg = (label === 'Login') ? `Don't you have an account? ` : 'Already have an account?'
 
     const isNotValidForm = () => {
-        return label === 'Login' ? !username || !password
+        return label === 'Login' ? (!username || !password)
             : (!username || !password || !isValidEmail || isEmailExists || isUserNameExists)
     }
 
@@ -28,6 +28,7 @@ const AuthForm = ({username, password, setUsername, setPassword, label, email ,s
             <Typography variant={'h5'} style={{ color: theme.palette.primary.main, textAlign: 'center' }}>{label}</Typography>
             <Stack direction='column' spacing={2} sx={{ mb: 2}}>
                 <TextField label={'User Name'} required
+                           error={isUserNameExists}
                            helperText={!username ? 'Required': isUserNameExists ? 'Username already exists' : null}
                            variant={'outlined'} value={username} onChange={(e)=> setUsername(e.target.value)}/>
                 <TextField label={'Password'} required value={password} onChange={(e)=> setPassword(e.target.value)}
@@ -38,8 +39,9 @@ const AuthForm = ({username, password, setUsername, setPassword, label, email ,s
                 {(email === '' || email )&&(
                     <>
                         <TextField label={'Email'} variant={'outlined'} value={email} required
+                                   error={isEmailExists}
                                    onChange={(e)=> setEmail && setEmail(e.target.value)}
-                                   helperText={!isValidEmail ? 'Invalid Email Address' : isUserNameExists ? 'EamilId already registered' : null}
+                                   helperText={!isValidEmail ? 'Invalid Email Address' : isEmailExists ? 'EamilId already registered' : null}
                         />
                         <TextField
                             value={phoneNumber}
