@@ -10,7 +10,7 @@ import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
 
 export async function getServerSideProps({context}) {
-    const data = await fetch(`${process.env.NEXT_SERVER_BASE_URL}/api/recipes`).then(response=> response.json()) //${process.env.NEXT_SERVER_BASE_URL}/api/recipes
+    const data = await fetch(`${process.env.NEXT_SERVER_BASE_URL}/api/recipes`).then(response=> response.json())
     return { props: { recipes: data} }
 }
 

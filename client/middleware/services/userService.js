@@ -32,9 +32,9 @@ export const register = async(payload) => {
         const hashPwd = await bcrypt.hash(password, 10)
         const newUser = new UserModel({username, password: hashPwd, email})
         await newUser.save()
-        return {message: "User Registered Successfully"}
+        return {message: "User Registered Successfully", }
     }catch(e) {
-        return {message: e.message}
+        return {error: `Error registering new user: ${username}`, message: e.message}
     }
 }
 

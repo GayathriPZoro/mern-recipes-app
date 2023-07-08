@@ -3,7 +3,12 @@ import {useState} from "react";
 import AuthForm from "../../app/components/authForm";
 import {MuiSnackbar} from "../../app/components/MuiSnackbar";
 
-const Register = () => {
+export async function getServerSideProps({context}) {
+    const data = await fetch(`${process.env.NEXT_SERVER_BASE_URL}/api/users/getAll`).then(response=> response.json())
+    return { props: { users: data} }
+}
+
+const Register = ({users}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -41,6 +46,8 @@ const Register = () => {
         setEmail('')
         setPhoneNumber('')
     }
+    const isUserNameExists=users?.map(u=>u?.username)?.includes(username)
+    const isEmailExists = users?.map(u=>u.email)?.includes(email)
     return (
         <>
             <AuthForm
@@ -48,6 +55,8 @@ const Register = () => {
                 setUsername={setUsername} setPassword={setPassword}
                 email={email} setEmail={setEmail} label={'Register'}
                 phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
+                isUserNameExists={isUserNameExists}
+                isEmailExists={isEmailExists}
                 handleSubmit={handleSubmit}
             />
             {open && (
