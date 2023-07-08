@@ -18,7 +18,7 @@ const sendConfirmationMail = async (user) => {
                     "to_name": user?.username || user?.name,
                     "reply_to": user?.email,
                     "from_name": "My Recipes App",
-                    "message": ""
+                    "message": `You can login to the application with this url: ${process.env.NEXT_SERVER_BASE_URL}`
                 }
             };
             const {data} = await axios.post(`https://api.emailjs.com/api/v1.0/email/send?accessToken=${process.env.EMAILJS_PRIVATE_KEY}`,payload)
