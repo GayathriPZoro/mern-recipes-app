@@ -15,7 +15,7 @@ export const login = async({username, password}) => {
             return {message: "Username or Password Is Incorrect!"}
         }
         const token = jwt.sign({id: user._id}, process.env.PRIVATE_SECRET_KEY)
-        return {token, userID: user._id, username: user.username}
+        return {token, userID: user._id, username: user.username, email: user?.email }
     }catch(e) {
         return {message: e.message}
     }

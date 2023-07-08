@@ -6,7 +6,11 @@ import {useCookieState} from "../../../app/hooks/useCookieState";
 import {containerStyle} from "../../../app/components/styles.common";
 import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
+import {MuiSnackbar} from "../../../app/components/MuiSnackbar";
+import {useCookies} from "react-cookie";
 const CreateRecipe = () => {
+    const [cookies, _] = useCookies(['user'])
+    const user = cookies?.user && typeof cookies?.user !== 'string' ? cookies?.user : null
     const theme = useTheme();
     const {data: session} = useSession()
     const [name, setName] = useState('');
@@ -18,6 +22,8 @@ const CreateRecipe = () => {
     const userID = useGetUserID()
     const router = useRouter()
     const access_token = useCookieState({key: 'access_token'})
+    const [open, setOpen] = useState(false);
+    const [data, setData] = useState({})
 
     useEffect(()=>{
         if(!session && !userID) {
@@ -29,15 +35,28 @@ const CreateRecipe = () => {
     }
     const handleCreateRecipe = async(event) => {
         event.preventDefault()
+        let userOwner = userID
+        //check if userID is null or not
+        if(!userID || userID==='') {
+            const response = await fetch('/api/users/get',{
+                method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: user?.email})
+            }).then(resp=> resp.json())
+            userOwner=respone?.id || userOwner
+            window.localStorage.setItem('userID', response?._id)
+        }
         const response = await fetch('/api/recipes/create',{
             method: 'POST',
             body: JSON.stringify({
-                name, ingredients, instructions, cookingTime, image, userOwner: userID
+                name, ingredients, instructions, cookingTime, image, userOwner
             }),
             headers: {'Content-Type': 'application/json', 'Authorization': access_token}
         }).then(resp=>resp.json())
+        setOpen(true)
         if(!response.error) {
+            setData({message: "Recipe Created Successfully", severity: "success"})
             router.push('/recipes')
+        } else {
+            setData({message: response?.error, severity: "error"})
         }
     }
     return (
@@ -80,8 +99,10 @@ const CreateRecipe = () => {
                            helperText={!image ? 'Required': null}
                            variant={'outlined'} value={image} onChange={(e)=> setImage(e.target.value)}/>
                 <Button variant="contained" onClick={handleCreateRecipe}>Create Recipe</Button>
-
             </Stack>
+            {open && (
+                <MuiSnackbar severity={data.severity} message={data.message} setOpen={setOpen} open={true}/>
+            )}
         </Stack>
     )
 }

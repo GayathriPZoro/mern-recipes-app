@@ -6,6 +6,6 @@ export default async (req, res) => {
         return res.json(response)
     } catch (e) {
         console.error(e);
-        res.json({error: e, message: 'Error in creating recipe'})
+        res.status(500).json({error: e, message: 'Error in creating recipe'})
     }
 }
