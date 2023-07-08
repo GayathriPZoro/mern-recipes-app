@@ -1,13 +1,16 @@
 import { Box } from "@mui/material";
 import GlobalLoading from "./components/GlobalLoading";
 import TopNavbar from "./components/TopNavbar";
+import ClientOnly from "./components/ClientOnly";
 const MainLayout = ({children}) => {
     return (
         <>
             <GlobalLoading />
             <Box display="flex" minHeight="100vh">
                 {/* header */}
-                <TopNavbar />
+                <ClientOnly>
+                    <TopNavbar />
+                </ClientOnly>
                 {/* header */}
                 {/* main */}
                 <Box
