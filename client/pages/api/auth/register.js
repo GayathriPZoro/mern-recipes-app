@@ -2,11 +2,14 @@ import {register} from '../../../middleware/services/userService'
 import axios from "axios";
 const sendConfirmationMail = async (user) => {
     try{
-        const resp = await fetch(`${process.env.NEXT_SERVER_BASE_URL}/api/email/checkEmailValid`,{
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({emailId: user?.email})
-        }).then(resp=> resp.json())
+        const resp = await axios.get(`https://emailvalidation.abstractapi.com/v1/?api_key=${process.env.ABSTRACT_EMAIL_API_KEY}&email=${user?.email}`)
+            .then(response => {
+                console.log(response?.data);
+                return response?.data
+            })
+            .catch(error => {
+                console.log(error);
+            });
         if(resp?.deliverability === 'DELIVERABLE' && resp?.is_valid_format?.value) { //email id is deliverable
             //send registration confirmation to user email id
             let payload = {
