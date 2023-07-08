@@ -1,6 +1,11 @@
 'use client'
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import {ListItemButton, ListItemIcon, ListItemText, Menu, Typography, useTheme} from "@mui/material";
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Menu from '@mui/material/Menu';
+import Typography from '@mui/material/Typography';
+import { useTheme } from "@mui/material";
 import { useState } from "react";
 import {signOut} from "next-auth/react";
 import Link from 'next/link'
@@ -9,12 +14,10 @@ import {useCookies} from "react-cookie";
 import Avatar from "@mui/material/Avatar";
 import {useRouter} from "next/router";
 import {useAppContext} from "../context/appState";
-import {useUserContext} from "../context/user";
 
 const UserMenu = () => {
-    const { setUser} = useUserContext()
     const {setAppState} = useAppContext()
-    const [cookies, setCookies] = useCookies(['user'])
+    const [cookies, setCookie, removeCookie] = useCookies(['user'])
     const router = useRouter()
     const theme = useTheme();
     const user = cookies?.user && typeof cookies?.user !== 'string' ? cookies?.user : null
@@ -23,10 +26,9 @@ const UserMenu = () => {
 
     const toggleMenu = (e) => setAnchorEl(e.currentTarget);
     const logout = () =>{
-        setUser(null)
         setAppState('login')
-        setCookies("access_token", "")
-        setCookies("user", null)
+        removeCookie("access_token")
+        removeCookie("user")
         window.localStorage.removeItem("userID")
         signOut().then((data)=>{
             window.localStorage.removeItem("userID")

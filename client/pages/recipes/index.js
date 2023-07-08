@@ -1,6 +1,7 @@
 'use client'
 import RecipeReviewCard from '../../app/components/RecipeCard'
-import {Box, Grid} from "@mui/material";
+import Box from '@mui/material/Box'
+import Grid from "@mui/material/Grid";
 import {useGetUserID} from "../../app/hooks/useGetUserID";
 import {useCookies} from "react-cookie";
 import {useSavedRecipesIds} from "../../app/hooks/useRecipes";
@@ -17,7 +18,7 @@ const RecipesHome = ({recipes, savedRecipesData}) => {
     const userID = useGetUserID()
     const {data: session} = useSession()
     const { data: savedRecipes = [], isLoadingSavedRecipes, isFetchingSavedRecipes } = useSavedRecipesIds({userID})
-    const [cookies, _] = useCookies("access_token")
+    const [cookies, _] = useCookies(["user"])
     const router = useRouter()
     useEffect(()=>{
         if(!session && !userID) {

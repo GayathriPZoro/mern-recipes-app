@@ -31,7 +31,7 @@ const ScrollAppBar = ({ children, window }) => {
     });
 };
 const TopNavbar = () => {
-    const[cookies, setCookies] = useCookies(['user'])
+    const[cookies, _] = useCookies(['user'])
     const user = cookies?.user && typeof cookies?.user !== 'string' ? cookies?.user : null
     const {appState, setAppState} = useAppContext()
     const { themeMode, setThemeMode } = useThemeContext()

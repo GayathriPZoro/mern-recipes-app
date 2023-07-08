@@ -9,25 +9,21 @@ import AuthForm from "../app/components/authForm";
 import {MuiSnackbar} from "../app/components/MuiSnackbar";
 import GoogleIcon from '@mui/icons-material/Google';
 import {useAppContext} from "../app/context/appState";
-import {useUserContext} from "../app/context/user";
 
 const Login = () => {
     const { data: session } = useSession();
-    const {setUser} = useUserContext()
     const {setAppState} = useAppContext();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [open, setOpen] = useState(false);
     const [data, setData] = useState({})
-    const [cookies, setCookies]=useCookies(["access_token"])
-    const[userCookie, setUserCookie] = useCookies(['user'])
+    const [cookies, setCookie]=useCookies(["user"])
     const router = useRouter()
 
     useEffect(()=>{
        setTimeout(()=> {
            if(session) {
-               setUser(session?.user)
-               setUserCookie("user", session?.user)
+               setCookie("user", session?.user)
                setAppState('home')
                router.push('/recipes')
            }
@@ -52,10 +48,9 @@ const Login = () => {
                 }
             )
         } else {
-            setUser(response)
             setAppState('home')
-            setCookies("access_token", response?.token)
-            setUserCookie("user", response)
+            setCookie("access_token", response?.token)
+            setCookie("user", response)
             window.localStorage.setItem("userID", response?.userID)
             setData({
                     message: 'Login Successful!',

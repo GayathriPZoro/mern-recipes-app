@@ -9,10 +9,11 @@ import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import {useThemeContext} from "../context/theme";
 import { themeModes } from "../config/theme.configs";
 import {useAppContext} from "../context/appState";
-import {useUserContext} from "../context/user";
+import {useCookies} from "react-cookie";
 
 const Sidebar = ({ open, toggleSidebar }) => {
-    const {user} = useUserContext()
+    const[cookies, _] = useCookies(['user'])
+    const user = cookies?.user && typeof cookies?.user !== 'string' ? cookies?.user : null
     const {appState, setAppState} = useAppContext()
     const {themeMode, setThemeMode} = useThemeContext()
     const mainMenuConfigs = user ? menuConfigs.user : menuConfigs.main
