@@ -38,6 +38,7 @@ const CreateRecipe = () => {
         let userOwner = userID
         //check if userID is null or not
         if(!userID || userID==='') {
+            //fetch userID for loggedIn user from DB by sending user email
             const response = await fetch('/api/users/get',{
                 method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: user?.email})
             }).then(resp=> resp.json())

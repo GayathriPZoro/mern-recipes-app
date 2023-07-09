@@ -14,7 +14,7 @@ export async function getServerSideProps({context}) {
     return { props: { recipes: data} }
 }
 
-const RecipesHome = ({recipes, savedRecipesData}) => {
+const RecipesHome = ({recipes}) => {
     const userID = useGetUserID()
     const {data: session} = useSession()
     const { data: savedRecipes = [], isLoadingSavedRecipes, isFetchingSavedRecipes } = useSavedRecipesIds({userID})
