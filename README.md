@@ -50,11 +50,11 @@ To login you can user the following credentials or Google Sign In
 > password: test123
 
 ### Resource
-[Next JS] (https://nextjs.org/learn/basics/create-nextjs-app)<br>
-[Material UI] (https://create-react-app.dev/)<br>
-[MongoDB] (https://www.mongodb.com/) <br>
-[MongoDB with NextJS Connection] (https://hevodata.com/learn/next-js-mongodb-connection/)<br>
-[Google Developer Console to get clientID and client secret] (https://console.cloud.google.com/)<br>
-[Elastic Search Cloud] (https://www.elastic.co/cloud/) <br>
-[SendGrid for sending mails] (https://app.sendgrid.com/) <br>
-[Abstract API to check email is Valid Deliverable email or not] (https://app.abstractapi.com/) <br>
+[Next JS](https://nextjs.org/learn/basics/create-nextjs-app)<br>
+[Material UI](https://create-react-app.dev/)<br>
+[MongoDB](https://www.mongodb.com/) <br>
+[MongoDB with NextJS Connection](https://hevodata.com/learn/next-js-mongodb-connection/)<br>
+[Google Developer Console to get clientID and client secret](https://console.cloud.google.com/)<br>
+[Elastic Search Cloud](https://www.elastic.co/cloud/) <br>
+[SendGrid for sending mails](https://app.sendgrid.com/) <br>
+[Abstract API to check email is Valid Deliverable email or not](https://app.abstractapi.com/) <br>
