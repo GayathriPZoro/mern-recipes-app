@@ -26,14 +26,13 @@ const sendConfirmationMail = async (user) => {
             }
           const sgMailResponse=await sgMail
                 .send(msg)
-                .then((resp) => {
+                .then(() => {
                     console.log('Email sent with SendGrid')
-                    return resp
                 })
                 .catch((error) => {
                     console.error(`Error sending Registration Confirmation Email with SendGrid: ${error}`)
                 })
-            console.log('Response for sending registration confirmation email withn send grid: ',sgMailResponse)
+            console.info('Response for sending registration confirmation email withn send grid: ',sgMailResponse)
         }
     }catch (e) {
         console.error('Error in sending registration confirmation email: ',e?.message)
