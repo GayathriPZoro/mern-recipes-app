@@ -79,6 +79,7 @@ const TopNavbar = () => {
                                     }}
                                     component={Link}
                                     href={item.path}
+                                    to={item.path}
                                     onClick={()=> {
                                         setAppState(item.state)}
                                     }

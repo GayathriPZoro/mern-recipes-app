@@ -35,6 +35,7 @@ const UserMenu = () => {
         window.localStorage.removeItem("userID")
         signOut().then((data)=>{
             window.localStorage.removeItem("userID")
+            removeCookie("user")
             router.push("/")
         })
     }
