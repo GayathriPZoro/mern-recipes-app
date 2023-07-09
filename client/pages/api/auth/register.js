@@ -42,7 +42,7 @@ const sendConfirmationMail = async (user) => {
 export default async function handler (req, res) {
     const response = await register(req.body)
     if(!response?.error) {
-        sendConfirmationMail(req.body)
+        await sendConfirmationMail(req.body)
     }
     return res.json(response)
 }
