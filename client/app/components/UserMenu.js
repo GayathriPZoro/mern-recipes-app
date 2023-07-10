@@ -5,7 +5,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider'
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography';
 import { useTheme } from "@mui/material";
 import { useState } from "react";
@@ -20,7 +19,7 @@ import Stack from "@mui/material/Stack";
 
 const UserMenu = () => {
     const {setAppState} = useAppContext()
-    const [cookies, setCookie, removeCookie] = useCookies(['user'])
+    const [cookies, _, removeCookie] = useCookies(['user'])
     const router = useRouter()
     const theme = useTheme();
     const user = cookies?.user && typeof cookies?.user !== 'string' ? cookies?.user : null

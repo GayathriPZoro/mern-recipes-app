@@ -17,7 +17,7 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [open, setOpen] = useState(false);
     const [data, setData] = useState({})
-    const [cookies, setCookie]=useCookies(["user"])
+    const [cookies, setCookie, removeCookie]=useCookies(["user"])
     const router = useRouter()
 
     useEffect(()=>{
@@ -26,6 +26,10 @@ const Login = () => {
                setCookie("user", session?.user)
                setAppState('home')
                router.push('/recipes')
+           } else {
+               removeCookie("user")
+               setAppState('login')
+               router.push('/')
            }
        }, 1000)
         return(()=> clearTimeout())
