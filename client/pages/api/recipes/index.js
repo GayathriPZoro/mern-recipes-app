@@ -4,13 +4,13 @@ export default async (req, res) => {
     try {
         await dbConnect();
         const recipes = await RecipesModel.find({})
-        recipes?.map((r)=>{
-            if(typeof r?.instructions ==='string') {
-                r.instructions = r?.instructions?.split('.')
+        const updated=recipes?.map((r)=>{
+            if(r?.instructions?.length ===1) {
+                r.instructions = r?.instructions[0]?.split('.')
             }
             return r
         })
-        res.json(recipes);
+        res.json(updated);
     } catch (e) {
         console.error(e);
         res.json({error: e})

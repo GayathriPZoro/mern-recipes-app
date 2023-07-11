@@ -95,7 +95,7 @@ export default function RecipeReviewCard({Recipe, isRecipeSaved= ()=> {}, fromSa
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <Typography paragraph>Method:</Typography>
-                    {(typeof instructions === 'string' ? instructions?.split('.') : instructions)?.map((step, idx)=> (
+                    {instructions?.map((step, idx)=> (
                         <Typography paragraph key={`cooking instruction-${idx}-${step}`}>
                             {step}
                         </Typography>
