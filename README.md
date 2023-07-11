@@ -1,4 +1,4 @@
-# My Recipes Application with NextJS adn MongoDB
+# My Recipes Application with NextJS and MongoDB
 
 ## Description
 This is a sample Recipes application which uses MongoDB, Express, React JS with Material UI and NodeJS.
