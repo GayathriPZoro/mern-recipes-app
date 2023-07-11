@@ -16,6 +16,7 @@ import Avatar from "@mui/material/Avatar";
 import {useRouter} from "next/router";
 import {useAppContext} from "../context/appState";
 import Stack from "@mui/material/Stack";
+import {textEllipsis} from "./styles.common";
 
 const UserMenu = () => {
     const {setAppState} = useAppContext()
@@ -66,7 +67,7 @@ const UserMenu = () => {
                     >
                         <Stack direction={'column'} spacing={1} sx={{m: '2% 8%'}}>
                             <Typography variant={'subtitle2'}>Signed in as</Typography>
-                            <Typography variant={'subtitle1'} sx={{color: theme.palette.primary.main, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{user?.email || user.username}</Typography>
+                            <Typography variant={'subtitle1'} sx={{color: theme.palette.primary.main, ...textEllipsis }}>{user?.email || user.username}</Typography>
                         </Stack>
                         <Divider />
                         {menuConfigs.userMenu.map((item, index) => (

@@ -40,7 +40,7 @@ const themeConfigs = {
                 ...customPalette
             },
             components: {
-                MuiButton: {
+                Button: {
                     defaultProps: { disableElevation: true }
                 }
             }

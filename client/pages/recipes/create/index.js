@@ -1,9 +1,10 @@
 'use client'
-import {Button, Chip, Stack, TextField, Typography, useTheme} from "@mui/material";
+import {Button, Chip, Stack, TextField, Typography, useTheme, List, ListItem, ListItemText, IconButton} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete'
 import {useEffect, useState} from "react";
 import {useGetUserID} from "../../../app/hooks/useGetUserID";
 import {useCookieState} from "../../../app/hooks/useCookieState";
-import {containerStyle} from "../../../app/components/styles.common";
+import {containerStyle, textEllipsis} from "../../../app/components/styles.common";
 import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
 import {MuiSnackbar} from "../../../app/components/MuiSnackbar";
@@ -14,7 +15,8 @@ const CreateRecipe = () => {
     const theme = useTheme();
     const {data: session} = useSession()
     const [name, setName] = useState('');
-    const [instructions, setInstructions] = useState();
+    const [instruction, setInstruction] = useState('');
+    const [instructions, setInstructions] = useState([]);
     const [ingredient, setIngredient] = useState('');
     const [ingredients, setIngredients] = useState([]);
     const [cookingTime, setCookingTime] = useState(0);
@@ -24,12 +26,28 @@ const CreateRecipe = () => {
     const access_token = useCookieState({key: 'access_token'})
     const [open, setOpen] = useState(false);
     const [data, setData] = useState({})
+    const disableCreate = !name ||instructions?.length === 0 || ingredients?.length===0 || !cookingTime || !image
 
     useEffect(()=>{
         if(!session && !userID) {
             router.push('/')
         }
     },[])
+
+    const handleAddDeleteInstruction = (action='add', value, idx) => {
+        let cookingSteps = [...instructions]
+        switch(action) {
+            case 'delete':
+                cookingSteps?.splice(idx,1);
+                break;
+            case "add":
+            default:
+                cookingSteps.push(value);
+                setInstruction('')
+                break;
+        }
+        setInstructions(cookingSteps)
+    }
     const handleDelete = (chipToDelete) => {
         setIngredients(chips => chips.filter(chip=> chip!==chipToDelete) )
     }
@@ -60,6 +78,31 @@ const CreateRecipe = () => {
             setData({message: response?.error, severity: "error"})
         }
     }
+    const renderInstructions = () =>{
+        return(
+            <List sx={{backgroundColor: 'rgba(255, 255, 255, 0.16)', p: 0, border: '1px solid lightgray', borderRadius: '4px', overflowY: 'auto', maxHeight:'20vh'}}>
+                {instructions?.map((cookingStep, idx)=>(
+                    <ListItem
+                        sx={{ color: 'gray'}}
+                        key={`${idx}-cookingStep`}
+                        secondaryAction={
+                            <IconButton edge="end" aria-label="delete-step" onClick={()=> handleAddDeleteInstruction('delete', cookingStep, idx)}>
+                                <DeleteIcon />
+                            </IconButton>
+                        }
+                    >
+                        <ListItemText
+                            primaryTypographyProps={{
+                                sx: {...textEllipsis, maxWidth: '30vw'}
+                            }}
+                            primary={cookingStep}
+                        />
+                    </ListItem>
+                ))}
+            </List>
+        )
+    }
+
     return (
         <Stack direction={'column'} spacing={2}  sx={{
             ...containerStyle,
@@ -90,16 +133,27 @@ const CreateRecipe = () => {
                         <Chip label={chip} key={chip+idx} size={'small'} onDelete={()=>handleDelete(chip)}/>
                     ))}
                 </Stack>
-                <TextField label={'Instructions'} required
-                           helperText={!instructions ? 'Required': null}
-                           variant={'outlined'} value={instructions} onChange={(e)=> setInstructions(e.target.value)}/>
+                <TextField label={'Instruction'} required
+                           helperText={!instruction ? 'Required': null}
+                           variant={'outlined'} value={instruction} onChange={(e)=> setInstruction(e.target.value)}
+                           onKeyDown={(e)=> {
+                               if(e.key ==='Enter') {
+                                   handleAddDeleteInstruction('add', instruction)
+                               }
+                           }}/>
+                <Button variant="contained" onClick={()=>handleAddDeleteInstruction('add', instruction)} disabled={!instruction || instruction===''}>Add Instruction</Button>
+                {instructions?.length > 0 &&(
+                    <Stack direction={'column'} spacing={1}>
+                        {renderInstructions()}
+                    </Stack>
+                )}
                 <TextField label={'Cooking Time(minutes)'} required
                            helperText={!cookingTime ? 'Required': null}
                            variant={'outlined'} value={cookingTime} onChange={(e)=> setCookingTime(e.target.value)}/>
                 <TextField label={'Image Url'} required
                            helperText={!image ? 'Required': null}
                            variant={'outlined'} value={image} onChange={(e)=> setImage(e.target.value)}/>
-                <Button variant="contained" onClick={handleCreateRecipe}>Create Recipe</Button>
+                <Button variant="contained" onClick={handleCreateRecipe} disabled={disableCreate}>Create Recipe</Button>
             </Stack>
             {open && (
                 <MuiSnackbar severity={data.severity} message={data.message} setOpen={setOpen} open={true}/>

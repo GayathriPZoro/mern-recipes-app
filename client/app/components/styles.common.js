@@ -5,3 +5,7 @@ export const containerStyle  = {
     borderRadius: 2,
     p: 2
 }
+
+export const textEllipsis = {
+    overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
+}
