@@ -1,0 +1,31 @@
+{
+  "name": "mern-recipes-app",
+  "version": "1.0.0",
+  "description": "My Recipes Application with MERN Stack",
+  "private": true,
+  "engines": {
+    "node": ">=18.x",
+    "npm": ">=9.x"
+  },
+  "scripts": {
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "build": "cd client && npm run build",
+    "start": "cd server && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gayathri-polubothu/mern-recipes-app"
+  },
+  "keywords": [
+    "react",
+    "nodejs",
+    "express",
+    "mongodb",
+    "recipes"
+  ],
+  "author": "Gayathri Polubothu",
+  "license": "MIT"
+}
+
